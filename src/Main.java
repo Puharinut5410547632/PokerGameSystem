@@ -40,39 +40,55 @@ public class Main {
 		int call = 0;
 		int cFold = 0;
 		int cCall = 0;
+		int bCheck = 0;
 		
 		TestBot bot = new TestBot(confidence, bluff);
 		
 	//	System.out.println("Fold = " + bot.Fold());
 	//	System.out.println("Check = " + bot.check());
 		
-		//Normal roll
-		for (int i = 0; i < j; i++) {
-
-			int x = randInt(0, 100);
-			if (x < bot.Fold()) {
-				fold++;
-			} else if (bot.Fold() <= x && x <= bot.check()) {
-				check++;
-			} else {
-				call++;
-			}
-		}
-		
-		//Check roll
-		
-		for(int i = 0; i < check; i++)
+		//bluff check
+		 //if rng is higher than the bluffCheck value then bot will not check if the player bluff 
 		{
-			int x = randInt(0, 100);
-			if( x <= bot.cFold()){
-				cFold++;
+			//Normal roll
+			for (int i = 0; i < j; i++) {
+				int rand = randInt(0,100);
+				//bluff check
+				if(bot.bluffCheck() < rand)
+				{
+					int x = randInt(0, 100);
+					//System.out.println(x);
+					if (x < bot.Fold()) {
+						fold++;
+					} else if (bot.Fold() <= x && x <= bot.check()) {
+						check++;
+					} else {
+						call++;
+					}
+				}
+				else {
+					bCheck++;
+				}
 			}
-			else cCall++;
+		
+			//Check roll
+		
+			for(int i = 0; i < check; i++)
+			{
+				int x = randInt(0, 100);
+				//System.out.println(x);
+				if( x <= bot.cFold()){
+					cFold++;
+				}
+				else cCall++;
+			}
 		}
+		
 		System.out.println("fold = "+fold);
 		System.out.println("raise/call = "+call);
-		System.out.println("cCall = "+ cCall);
-		System.out.println("CFold = " + cFold);
+		System.out.println("check Call = "+ cCall);
+		System.out.println("check Fold = " + cFold);
+		System.out.println("bluff Check = " + bCheck);
 
 	}
 
