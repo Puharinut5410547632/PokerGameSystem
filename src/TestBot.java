@@ -45,7 +45,7 @@ public class TestBot {
 	
 	public double bluffCheck()
 	{
-		return confidence;
+		return 20+(bluff*5)+(bluffFail*10);
 	}
 	
 	
